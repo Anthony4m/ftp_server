@@ -20,6 +20,8 @@ class User{
     }
     void createUser(const std::string& username, const std::string& password);
     bool authenticateUser(const std::string& username, const std::string& password);
+    void writeToFile(User *);
+    void readFromFile(const std::string &filename);
 private:
     std::string Username;
     std::string Password;

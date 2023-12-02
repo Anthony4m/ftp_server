@@ -6,18 +6,21 @@
 #include <cereal/cereal.hpp>
 #include "User.h"
 const std::string usersGeneralFile = "User.dat";
+void User::writeToFile(User *user) {
+    try {
+        std::fstream userFile(usersGeneralFile, std::ios::binary | std::ios::in | std::ios::out | std::ios::ate);
+        if (userFile.is_open()) {
+            cereal::BinaryOutputArchive archive(userFile);
+            archive(*user);
+        }
+    }catch (cereal::Exception exception){
+        std::cerr<<"Exception: " <<exception.what();
+    }
+}
 
 void User::createUser(const std::string &username, const std::string &password) {
     *this = User(username, hashFunction(password));
-    try {
-        std::fstream userFile(usersGeneralFile, std::ios::binary | std::ios::in | std::ios::out | std::ios::ate| std::ios::trunc);
-        if (userFile.is_open()) {
-            cereal::BinaryOutputArchive archive(userFile);
-            archive(*this);
-        }
-    }catch (cereal::Exception exception){
-        std::cerr << "Exception in createUser: " << exception.what() << std::endl;
-    }
+    writeToFile(this);
 }
 
 
@@ -62,4 +65,8 @@ bool User::authenticateUser(const std::string &username, const std::string &pass
 User::User() {
 
 }
+
+
+
+
 
