@@ -28,4 +28,5 @@ private:
     std::string hashFunction(const std::string& input);
     std::string decrypt(const std::string& ciphertext);
 
+    bool usernameExists(const std::string &username);
 };

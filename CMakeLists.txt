@@ -34,19 +34,24 @@ add_executable(client_exe
         Tnet/Packet.cpp
         Tnet/PacketException.h
 )
-#add_executable(server_exe
-#        server/server.cpp
-#        Tnet/Packet.h
-#        Tnet/Packet.cpp
-#        Tnet/PacketException.h
-#)
+add_executable(server_exe
+        server/server.cpp
+        Tnet/Packet.h
+        Tnet/Packet.cpp
+        Tnet/PacketException.h
+)
 
 add_executable(ftp_server_exe
-        FTPServer/FtpServer.cpp
+        FTPServer/Entry.cpp
         FTPServer/Authentication/UserManager.cpp
         FTPServer/Authentication/User.cpp
+        FTPServer/FTPServer.cpp
+        Tnet/Packet.h
+        Tnet/Packet.cpp
+        Tnet/PacketException.h
 )
 
 # Link the client_exe and server_exe with the Tnet library
 target_link_libraries(client_exe PRIVATE Tnet)
-#target_link_libraries(server_exe PRIVATE Tnet)
+target_link_libraries(ftp_server_exe PRIVATE Tnet)
+target_link_libraries(server_exe PRIVATE Tnet)
